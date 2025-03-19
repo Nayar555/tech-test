@@ -15,8 +15,19 @@ CREATE TABLE employee_department (
     description TEXT
 );
 
--- CREATE TABLE employee_hobby (
--- );
+CREATE TABLE employee_hobby (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    description TEXT
+);
+
+CREATE TABLE employee_hobby_assignment (
+    employee_id INT NOT NULL,
+    hobby_id INT NOT NULL,
+    PRIMARY KEY (employee_id, hobby_id),
+    FOREIGN KEY (employee_id) REFERENCES employee (id),
+    FOREIGN KEY (hobby_id) REFERENCES employee_hobby (id)
+);
 
 -- Añadir relación empleado-departamento
 ALTER TABLE employee
@@ -40,3 +51,14 @@ INSERT INTO employee (first_name, last_name, department_id) VALUES
 ('María', 'González', 1),
 ('Pedro', 'López', 2),
 ('Laura', 'Martínez', 4);
+
+INSERT INTO employee_hobby (name, description) VALUES
+('Lectura', 'Libros, artículos y material educativo'),
+('Deportes', 'Actividades físicas y ejercicio'),
+('Música', 'Tocar instrumentos o escuchar música');
+
+INSERT INTO employee_hobby_assignment (employee_id, hobby_id) VALUES
+(1, 1), (1, 2),
+(2, 2), (2, 3),
+(3, 1), (3, 3),
+(4, 1), (4, 2);
