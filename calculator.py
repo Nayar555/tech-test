@@ -1,16 +1,28 @@
 """
-Your module documentation here
+This module provides a CalculatorClass for performing basic mathematical
+operations.
 """
 
 
 class CalculatorClass(object):
     """
-    Your class documentation here
+    A calculator class that includes methods for common calculations such as
+    summation.
     """
 
     def sum(self, num_list):
         """
-        Your method documentation here
+        Calculates the sum of a list of numbers.
+
+        Args:
+            num_list (list): A list of numerical values.
+
+        Returns:
+            int or float: The sum of all numbers in num_list.
+
+        Example:
+            >>> calc = CalculatorClass()
+            >>> calc.sum([1, 2, 3, 4])
+            10
         """
-        # your sum code here
-        return "not implement yet"  # Remove this dummy line
+        return sum(num_list)
