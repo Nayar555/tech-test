@@ -3,6 +3,7 @@
 --       You can create database locally to test it.
 --       Consider add ';' at end sentence.
 
+
 CREATE TABLE employee (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -20,6 +21,9 @@ CREATE TABLE employee_hobby (
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT
 );
+
+-- Limpiar tabla con DELETE o se puede agregar un IF NOT EXISTS
+-- DELETE FROM employee;
 
 CREATE TABLE employee_hobby_assignment (
     employee_id INT NOT NULL,
@@ -52,13 +56,32 @@ INSERT INTO employee (first_name, last_name, department_id) VALUES
 ('Pedro', 'López', 2),
 ('Laura', 'Martínez', 4);
 
+-- Insertar hobbies
 INSERT INTO employee_hobby (name, description) VALUES
 ('Lectura', 'Libros, artículos y material educativo'),
 ('Deportes', 'Actividades físicas y ejercicio'),
 ('Música', 'Tocar instrumentos o escuchar música');
 
+-- Asignar hobbies a empleados
 INSERT INTO employee_hobby_assignment (employee_id, hobby_id) VALUES
 (1, 1), (1, 2),
 (2, 2), (2, 3),
 (3, 1), (3, 3),
 (4, 1), (4, 2);
+
+-- Añadir jefe a empleados
+ALTER TABLE employee
+ADD COLUMN boss_id INT NOT NULL,
+ADD CONSTRAINT fk_boss
+    FOREIGN KEY (boss_id)
+    REFERENCES employee (id)
+    ON DELETE RESTRICT;
+
+-- Asignar jefes a empleados
+UPDATE employee
+SET boss_id = 1
+WHERE id IN (2, 4);
+
+UPDATE employee
+SET boss_id = 2
+WHERE id = 3;
